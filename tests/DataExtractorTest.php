@@ -67,35 +67,16 @@ class DataExtractorTest extends TestCase
     }
 
     /**
-     * @dataProvider getAppearsReturnsNullDataProvider
+     * @dataProvider invalidBooleanValueDataProvider
      */
-    public function testGetAppearsReturnsNull(array $data)
+    public function testGetAppearsReturnsNull($value)
     {
-        $this->assertNull($this->dataExtractor->getAppears($data));
-    }
+        $data = [];
+        if ($value !== INF) {
+            $data['appears'] = $value;
+        }
 
-    public function getAppearsReturnsNullDataProvider(): array
-    {
-        return [
-            'missing' => [
-                'data' => [],
-            ],
-            'not an integer (numeric)' => [
-                'data' => [
-                    'appears' => '1',
-                ],
-            ],
-            'not an integer (string)' => [
-                'data' => [
-                    'appears' => 'foo',
-                ],
-            ],
-            'negative' => [
-                'data' => [
-                    'appears' => -1
-                ],
-            ],
-        ];
+        $this->assertNull($this->dataExtractor->getAppears($data));
     }
 
     public function testGetAppearsSuccess()
@@ -287,6 +268,25 @@ class DataExtractorTest extends TestCase
         );
     }
 
+    /**
+     * @dataProvider invalidBooleanValueDataProvider
+     */
+    public function testGetIsTorExitReturnsNull($value)
+    {
+        $data = [];
+        if ($value !== INF) {
+            $data['torexit'] = $value;
+        }
+
+        $this->assertNull($this->dataExtractor->getIsTorExit($data));
+    }
+
+    public function testGetIsTorExitAppearsSuccess()
+    {
+        $this->assertFalse($this->dataExtractor->getIsTorExit(['torexit' => 0]));
+        $this->assertTrue($this->dataExtractor->getIsTorExit(['torexit' => 1]));
+    }
+
     public function invalidNonNegativeIntegerDataProvider(): array
     {
         return [
@@ -337,6 +337,27 @@ class DataExtractorTest extends TestCase
             ],
             'empty string' => [
                 'value' => '',
+            ],
+        ];
+    }
+
+    public function invalidBooleanValueDataProvider(): array
+    {
+        return [
+            'missing' => [
+                'value' => INF,
+            ],
+            'not an integer (numeric)' => [
+                'value' => '1',
+            ],
+            'not an integer (string)' => [
+                'value' => 'foo',
+            ],
+            'negative' => [
+                'value' => -1,
+            ],
+            'too positive' => [
+                'value' => 2,
             ],
         ];
     }
