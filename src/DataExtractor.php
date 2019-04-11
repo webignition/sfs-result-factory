@@ -11,6 +11,7 @@ class DataExtractor
     const FIELD_DELEGATED = 'delegated';
     const FIELD_COUNTRY = 'country';
     const FIELD_ASN = 'asn';
+    const FIELD_TOR_EXIT = 'torexit';
     const IS_BLACKLISTED_THRESHOLD_IN_MINUTES = 10;
 
     private $isBlacklistedThresholdInMinutes = self::IS_BLACKLISTED_THRESHOLD_IN_MINUTES;
@@ -27,12 +28,7 @@ class DataExtractor
 
     public function getAppears(array $data): ?bool
     {
-        $appears = $this->getNonNegativeIntegerValue($data, self::FIELD_APPEARS);
-        if ($appears !== 0 && $appears !== 1) {
-            return null;
-        }
-
-        return (bool) $appears;
+        return $this->getNullableBooleanValue($data, self::FIELD_APPEARS);
     }
 
     public function getLastSeen(array $data): ?\DateTime
@@ -101,6 +97,11 @@ class DataExtractor
         return $this->getNonNegativeIntegerValue($data, self::FIELD_ASN);
     }
 
+    public function getIsTorExit(array $data): ?bool
+    {
+        return $this->getNullableBooleanValue($data, self::FIELD_TOR_EXIT);
+    }
+
     private function getNonNegativeIntegerValue(array $data, string $field): ?int
     {
         $value = $data[$field] ?? null;
@@ -121,5 +122,15 @@ class DataExtractor
         $value = trim($value);
 
         return empty($value) ? null : $value;
+    }
+
+    private function getNullableBooleanValue(array $data, string $field): ?bool
+    {
+        $value = $this->getNonNegativeIntegerValue($data, $field);
+        if ($value !== 0 && $value !== 1) {
+            return null;
+        }
+
+        return (bool) $value;
     }
 }
