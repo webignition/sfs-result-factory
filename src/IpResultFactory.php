@@ -31,7 +31,8 @@ class IpResultFactory implements ResultFactoryInterface
             $this->dataExtractor->getConfidence($data),
             $this->dataExtractor->getDelegatedCountryCode($data),
             $this->dataExtractor->getCountryCode($data),
-            $this->dataExtractor->getAsn($data)
+            $this->dataExtractor->getAsn($data),
+            $this->dataExtractor->getIsTorExit($data)
         );
     }
 }

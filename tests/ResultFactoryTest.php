@@ -137,7 +137,8 @@ class ResultFactoryTest extends TestCase
         ?float $expectedConfidence,
         ?string $expectedDelegatedCountryCode,
         ?string $expectedCountryCode,
-        ?int $expectedAsn
+        ?int $expectedAsn,
+        ?bool $expectedIsTorExitNode
     ) {
         $result = $this->resultFactory->create($data, $type);
 
@@ -151,6 +152,7 @@ class ResultFactoryTest extends TestCase
         $this->assertEquals($expectedDelegatedCountryCode, $result->getDelegatedCountryCode());
         $this->assertEquals($expectedCountryCode, $result->getCountryCode());
         $this->assertEquals($expectedAsn, $result->getAsn());
+        $this->assertEquals($expectedIsTorExitNode, $result->isTorExitNode());
     }
 
     public function createSuccessDataProvider(): array
@@ -172,6 +174,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
             'email, seen' => [
                 'data' => [
@@ -191,6 +194,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
             'email hash, unseen' => [
                 'data' => [
@@ -208,6 +212,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
             'email hash, seen' => [
                 'data' => [
@@ -227,6 +232,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
             'ip, unseen' => [
                 'data' => [
@@ -245,8 +251,9 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => 1273,
+                'expectedIsTorExitNode' => null,
             ],
-            'ip, seen' => [
+            'ip, seen, unknown if tor exit node' => [
                 'data' => [
                     'value' => '255.255.255.255',
                     'lastseen' => '2019-04-10 16:26:26',
@@ -267,6 +274,55 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => 'fr',
                 'expectedCountryCode' => 'gb',
                 'expectedAsn' => 789,
+                'expectedIsTorExitNode' => null,
+            ],
+            'ip, seen, is not exit node' => [
+                'data' => [
+                    'value' => '255.255.255.255',
+                    'lastseen' => '2019-04-10 16:26:26',
+                    'frequency' => 10,
+                    'appears' => 1,
+                    'confidence' => 99.5,
+                    'delegated' => 'fr',
+                    'country' => 'gb',
+                    'asn' => 789,
+                    'torexit' => 0,
+                ],
+                'type' => ResultInterface::TYPE_IP,
+                'expectedType' => ResultInterface::TYPE_IP,
+                'expectedFrequency' => 10,
+                'expectedAppears' => true,
+                'expectedValue' => '255.255.255.255',
+                'expectedLastSeen' => new \DateTime('2019-04-10 16:26:26'),
+                'expectedConfidence' => 99.5,
+                'expectedDelegatedCountryCode' => 'fr',
+                'expectedCountryCode' => 'gb',
+                'expectedAsn' => 789,
+                'expectedIsTorExitNode' => false,
+            ],
+            'ip, seen, is exit node' => [
+                'data' => [
+                    'value' => '255.255.255.255',
+                    'lastseen' => '2019-04-10 16:26:26',
+                    'frequency' => 10,
+                    'appears' => 1,
+                    'confidence' => 99.5,
+                    'delegated' => 'fr',
+                    'country' => 'gb',
+                    'asn' => 789,
+                    'torexit' => 1,
+                ],
+                'type' => ResultInterface::TYPE_IP,
+                'expectedType' => ResultInterface::TYPE_IP,
+                'expectedFrequency' => 10,
+                'expectedAppears' => true,
+                'expectedValue' => '255.255.255.255',
+                'expectedLastSeen' => new \DateTime('2019-04-10 16:26:26'),
+                'expectedConfidence' => 99.5,
+                'expectedDelegatedCountryCode' => 'fr',
+                'expectedCountryCode' => 'gb',
+                'expectedAsn' => 789,
+                'expectedIsTorExitNode' => true,
             ],
             'username, unseen' => [
                 'data' => [
@@ -284,6 +340,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
             'username, seen' => [
                 'data' => [
@@ -303,6 +360,7 @@ class ResultFactoryTest extends TestCase
                 'expectedDelegatedCountryCode' => null,
                 'expectedCountryCode' => null,
                 'expectedAsn' => null,
+                'expectedIsTorExitNode' => null,
             ],
         ];
     }
