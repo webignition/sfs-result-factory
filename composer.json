@@ -33,7 +33,7 @@
     },
     "require": {
         "php": ">=7.2.0",
-        "webignition/sfs-result-models": ">=0.1,<1",
+        "webignition/sfs-result-models": ">=0.2,<1",
         "webignition/sfs-result-interfaces": ">=0.4,<1"
     },
     "require-dev": {
