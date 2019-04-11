@@ -6,17 +6,10 @@ use webignition\SfsResultInterfaces\ResultInterface;
 
 class ResultFactory implements ResultFactoryInterface
 {
-    const VALID_TYPES = [
-        ResultInterface::TYPE_EMAIL,
-        ResultInterface::TYPE_EMAIL_HASH,
-        ResultInterface::TYPE_IP,
-        ResultInterface::TYPE_USERNAME,
-    ];
-
     /**
      * @var ResultFactoryInterface[] $factories
      */
-    private $factories;
+    private $factories = [];
 
     /**
      * @var DataExtractor
@@ -85,7 +78,7 @@ class ResultFactory implements ResultFactoryInterface
 
     public function handlesType(string $type): bool
     {
-        return in_array($type, self::VALID_TYPES);
+        return in_array($type, Types::VALID_TYPES);
     }
 
     private function findFactory(string $type): ?ResultFactoryInterface
