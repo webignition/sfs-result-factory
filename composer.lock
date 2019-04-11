@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03bcd01d65a997a3efbcae92eabd1e74",
+    "content-hash": "daf190e762107ea92194b292b996c834",
     "packages": [
         {
             "name": "webignition/sfs-result-interfaces",
@@ -53,16 +53,16 @@
         },
         {
             "name": "webignition/sfs-result-models",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/sfs-result-models.git",
-                "reference": "b630428e1f370d5ab6ae524edbeb2e6cb1b9310f"
+                "reference": "c3d6d9b2ba53983f2c061305b435520cab1c5e3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/sfs-result-models/zipball/b630428e1f370d5ab6ae524edbeb2e6cb1b9310f",
-                "reference": "b630428e1f370d5ab6ae524edbeb2e6cb1b9310f",
+                "url": "https://api.github.com/repos/webignition/sfs-result-models/zipball/c3d6d9b2ba53983f2c061305b435520cab1c5e3d",
+                "reference": "c3d6d9b2ba53983f2c061305b435520cab1c5e3d",
                 "shasum": ""
             },
             "require": {
@@ -92,14 +92,14 @@
                     "email": "webignition@gmail.com"
                 }
             ],
-            "description": "PHP models for results from querying api.stopforumspam.org",
+            "description": "PHP models for results from querying api.stopforumspam.com",
             "homepage": "https://github.com/webignition/sfs-result-models",
             "keywords": [
                 "forum",
                 "spam",
-                "stopforumspam.org"
+                "stopforumspam.com"
             ],
-            "time": "2019-04-10T14:25:01+00:00"
+            "time": "2019-04-10T16:04:10+00:00"
         }
     ],
     "packages-dev": [
