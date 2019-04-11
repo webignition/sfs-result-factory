@@ -1,7 +1,7 @@
 <?php
 /** @noinspection PhpDocSignatureInspection */
 
-namespace webignition\SfsResultModels\Tests;
+namespace webignition\SfsResultFactory\Tests;
 
 use PHPUnit\Framework\TestCase;
 use webignition\SfsResultFactory\DataExtractor;
