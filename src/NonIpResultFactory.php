@@ -25,13 +25,6 @@ class NonIpResultFactory implements ResultFactoryInterface
         return in_array($type, self::VALID_TYPES);
     }
 
-    /**
-     * @param array $data
-     * @param string|null $value
-     * @param string|null $type
-     *
-     * @return ResultInterface
-     */
     public function create(array $data, string $type, string $value = null): ResultInterface
     {
         return new Result(

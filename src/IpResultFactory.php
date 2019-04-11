@@ -19,13 +19,6 @@ class IpResultFactory implements ResultFactoryInterface
         return $type === ResultInterface::TYPE_IP;
     }
 
-    /**
-     * @param array $data
-     * @param string|null $value
-     * @param string|null $type
-     *
-     * @return ResultInterface
-     */
     public function create(array $data, string $type, string $value = null): ResultInterface
     {
         return new Result(
